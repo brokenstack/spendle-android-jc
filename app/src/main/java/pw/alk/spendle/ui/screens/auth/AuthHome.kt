@@ -1,5 +1,6 @@
 package pw.alk.spendle.ui.screens.auth
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -9,6 +10,7 @@ import androidx.compose.material.icons.outlined.Email
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -27,6 +29,8 @@ val ButtonModifier = Modifier
 
 @Composable
 fun AuthHome(navController: NavController) {
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,7 +77,9 @@ fun AuthHome(navController: NavController) {
         }
 
         Spacer(modifier = Modifier.height(13.dp))
-        OutlinedButton(onClick = { /*TODO*/ }, modifier = ButtonModifier) {
+        OutlinedButton(onClick = {
+            Toast.makeText(context, "This feature is not yet ready!", Toast.LENGTH_SHORT).show()
+        }, modifier = ButtonModifier) {
             Image(
                 painter = painterResource(id = R.drawable.ic_google),
                 modifier = Modifier.size(26.dp),
@@ -104,7 +110,9 @@ fun AuthHome(navController: NavController) {
                 ) {
                     append("Sign In")
                 }
-            }, onClick = { /*TODO*/ })
+            }, onClick = {
+                navController.navigate(Screen.AuthLogin.route)
+            })
         }
     }
 }
