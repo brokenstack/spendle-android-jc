@@ -17,15 +17,16 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import pw.alk.spendle.R
-import pw.alk.spendle.ui.theme.White80
+import pw.alk.spendle.ui.utils.Screen
 
 val ButtonModifier = Modifier
     .height(60.dp)
     .fillMaxWidth()
 
 @Composable
-fun AuthHome() {
+fun AuthHome(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -51,19 +52,18 @@ fun AuthHome() {
                 style = MaterialTheme.typography.h6
             )
         }
+
         Spacer(modifier = Modifier.height(70.dp))
 
         Button(
-            onClick = { /*TODO*/ },
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = MaterialTheme.colors.primary
-            ),
+            onClick = {
+                navController.navigate(route = Screen.AuthRegister.route)
+            },
             modifier = ButtonModifier,
         ) {
             Icon(
                 Icons.Outlined.Email,
-                contentDescription = "Email",
-                tint = White80
+                contentDescription = "Email"
             )
             Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             Text(
@@ -96,7 +96,7 @@ fun AuthHome() {
             ClickableText(text = buildAnnotatedString {
                 withStyle(
                     style = SpanStyle(
-                        color = White80,
+                        color = MaterialTheme.colors.primary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 17.sp,
                         textDecoration = TextDecoration.Underline

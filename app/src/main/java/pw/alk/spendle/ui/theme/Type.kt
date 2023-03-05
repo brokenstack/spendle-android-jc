@@ -8,6 +8,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 val Typography = Typography(
+    h2 = TextStyle(
+        fontWeight = FontWeight.Light,
+        fontSize = 60.sp,
+        letterSpacing = (-0.5).sp,
+    ),
+    h4 = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 34.sp,
+        letterSpacing = 0.25.sp,
+    ),
     h6 = TextStyle(
         fontFamily = FontFamily.Default,
         color = Color.Gray,
@@ -20,6 +30,5 @@ val Typography = Typography(
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         letterSpacing = 1.15.sp,
-        color = White80,
     )
 )

@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import pw.alk.spendle.ui.screens.auth.AuthHome
+import pw.alk.spendle.ui.screens.auth.AuthRegister
 
 sealed class Screen(val route: String)
 {
@@ -17,7 +18,11 @@ sealed class Screen(val route: String)
 fun setupNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.AuthHome.route) {
         composable(route = Screen.AuthHome.route) {
-            AuthHome()
+            AuthHome(navController)
+        }
+
+        composable(route = Screen.AuthRegister.route){
+            AuthRegister(navController)
         }
     }
 }
