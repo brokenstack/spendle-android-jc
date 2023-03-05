@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import pw.alk.spendle.ui.theme.SpendleTheme
-import pw.alk.spendle.ui.utils.setupNavGraph
+import pw.alk.spendle.ui.utils.SetupNavGraph
 
 class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
             SpendleTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     navController = rememberNavController()
-                    setupNavGraph(navController = navController)
+                    SetupNavGraph(navController = navController)
                 }
             }
         }

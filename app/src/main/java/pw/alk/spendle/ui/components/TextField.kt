@@ -6,6 +6,8 @@ import android.view.ViewTreeObserver
 import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -14,10 +16,8 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.*
 
 @Composable
 fun PasswordInput(
@@ -26,6 +26,8 @@ fun PasswordInput(
     onPasswordChange: (TextFieldValue) -> Unit,
     kbActionOnDone: KeyboardActionScope.() -> Unit
 ) {
+    var passwordVisible by remember { mutableStateOf(false) }
+
     OutlinedTextField(
         modifier = modifier.clearFocusOnKeyboardDismiss(),
         value = password,
@@ -33,11 +35,20 @@ fun PasswordInput(
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
         ),
-        visualTransformation = PasswordVisualTransformation(),
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         label = { Text(text = "Password") },
         keyboardActions = KeyboardActions(
             onDone = kbActionOnDone
-        )
+        ),
+        trailingIcon = {
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                val description = if (passwordVisible) "Hide password" else "Show password"
+                Icon(
+                    painter = painterResource(id = if (!passwordVisible) pw.alk.spendle.R.drawable.eye else pw.alk.spendle.R.drawable.eye_off),
+                    contentDescription = description,
+                )
+            }
+        },
     )
 }
 
@@ -81,7 +92,7 @@ fun rememberIsKeyboardOpen(): State<Boolean> {
         val listener = ViewTreeObserver.OnGlobalLayoutListener { value = view.isKeyboardOpen() }
         viewTreeObserver.addOnGlobalLayoutListener(listener)
 
-        awaitDispose { viewTreeObserver.removeOnGlobalLayoutListener(listener)  }
+        awaitDispose { viewTreeObserver.removeOnGlobalLayoutListener(listener) }
     }
 }
 
