@@ -7,17 +7,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
-import pw.alk.spendle.ui.screens.auth.NavigationViewModel
+import pw.alk.spendle.ui.nav.RootNavigationGraph
 import pw.alk.spendle.ui.theme.SpendleTheme
-import pw.alk.spendle.ui.utils.SetupNavGraph
 
 @HiltAndroidApp
-class Spendle: Application()
+class Spendle : Application()
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -28,7 +26,7 @@ class MainActivity : ComponentActivity() {
             SpendleTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     navController = rememberNavController()
-                    SetupNavGraph(navController = navController, hiltViewModel<NavigationViewModel>())
+                    RootNavigationGraph(navController = navController)
                 }
             }
         }

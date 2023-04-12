@@ -12,11 +12,12 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import pw.alk.spendle.ui.nav.AuthScreen
+import pw.alk.spendle.ui.nav.Graph
 import pw.alk.spendle.ui.shared.OnEvent
 import pw.alk.spendle.ui.shared.components.BackButton
 import pw.alk.spendle.ui.shared.components.EmailInput
 import pw.alk.spendle.ui.shared.components.PasswordInput
-import pw.alk.spendle.ui.utils.Screen
 
 @Composable
 fun RegisterScreen(
@@ -37,7 +38,7 @@ fun RegisterScreen(
     ) {
         BackButton(onClick = {
             navController.popBackStack(
-                route = Screen.AuthHome.route, inclusive = false
+                route = AuthScreen.Home.route, inclusive = false
             )
         })
         Spacer(modifier = Modifier.height(50.dp))
@@ -71,7 +72,7 @@ fun RegisterScreen(
         OnEvent(event = viewModel.event) {
             when (it) {
                 RegisterEvent.RegisterSuccess ->
-                    navController.navigate(Screen.Home.route) {
+                    navController.navigate(Graph.HOME) {
                         launchSingleTop = true
                     }
                 is RegisterEvent.RegisterFailure ->

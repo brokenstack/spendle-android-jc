@@ -24,7 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import pw.alk.spendle.R
-import pw.alk.spendle.ui.utils.Screen
+import pw.alk.spendle.ui.nav.AuthScreen
+import pw.alk.spendle.ui.nav.Graph
 
 val ButtonModifier = Modifier
     .height(60.dp)
@@ -42,7 +43,7 @@ fun AuthHome(navController: NavController, viewModel: NavigationViewModel) {
         }
         is ViewState.LoggedIn -> {
             LaunchedEffect(loadState) {
-                navController.navigate(Screen.Home.route) {
+                navController.navigate(Graph.HOME) {
                     launchSingleTop = true
                 }
             }
@@ -84,7 +85,7 @@ fun AuthHomeContent(navController: NavController) {
 
         Button(
             onClick = {
-                navController.navigate(route = Screen.AuthRegister.route) {
+                navController.navigate(route = AuthScreen.Register.route) {
                     launchSingleTop = true
                 }
             },
@@ -136,7 +137,7 @@ fun AuthHomeContent(navController: NavController) {
                     append("Sign In")
                 }
             }, onClick = {
-                navController.navigate(Screen.AuthLogin.route) {
+                navController.navigate(AuthScreen.Login.route) {
                     launchSingleTop = true
                 }
             })

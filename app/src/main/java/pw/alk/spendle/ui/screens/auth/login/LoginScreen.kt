@@ -16,11 +16,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import pw.alk.spendle.ui.nav.AuthScreen
+import pw.alk.spendle.ui.nav.Graph
 import pw.alk.spendle.ui.shared.OnEvent
 import pw.alk.spendle.ui.shared.components.BackButton
 import pw.alk.spendle.ui.shared.components.EmailInput
 import pw.alk.spendle.ui.shared.components.PasswordInput
-import pw.alk.spendle.ui.utils.Screen
 
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
@@ -39,7 +40,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
     ) {
         BackButton(onClick = {
             navController.popBackStack(
-                route = Screen.AuthHome.route,
+                route = AuthScreen.Home.route,
                 inclusive = false
             )
         })
@@ -96,7 +97,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
     OnEvent(event = viewModel.event) {
         when (it) {
             LoginEvent.LoginSuccess ->
-                navController.navigate(Screen.Home.route) {
+                navController.navigate(Graph.HOME) {
                     launchSingleTop = true
                 }
             is LoginEvent.LoginFailure ->
