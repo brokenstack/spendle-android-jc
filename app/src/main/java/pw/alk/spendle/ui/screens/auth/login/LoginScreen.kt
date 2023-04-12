@@ -16,13 +16,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import pw.alk.spendle.ui.shared.OnEvent
 import pw.alk.spendle.ui.shared.components.BackButton
 import pw.alk.spendle.ui.shared.components.EmailInput
 import pw.alk.spendle.ui.shared.components.PasswordInput
 import pw.alk.spendle.ui.utils.Screen
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
@@ -72,14 +73,16 @@ fun LoginScreen(navController: NavController) {
                         append("Forgot password?")
                     }
                 }, onClick = {
-                    Toast.makeText(context, "This feature is not yet ready!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "This feature is not yet ready!", Toast.LENGTH_SHORT)
+                        .show()
                 })
             }
 
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
-                    // TODO: Make request to server
+                    focusManager.clearFocus()
+                    viewModel.loginUser(email.text, password.text)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -87,6 +90,17 @@ fun LoginScreen(navController: NavController) {
             ) {
                 Text("Login", style = MaterialTheme.typography.button)
             }
+        }
+    }
+
+    OnEvent(event = viewModel.event) {
+        when (it) {
+            LoginEvent.LoginSuccess ->
+                navController.navigate(Screen.Home.route) {
+                    launchSingleTop = true
+                }
+            is LoginEvent.LoginFailure ->
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
         }
     }
 }

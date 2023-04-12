@@ -1,4 +1,4 @@
-package pw.alk.spendle.ui.screens.auth.register
+package pw.alk.spendle.ui.screens.auth.login
 
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import pw.alk.spendle.models.AuthRequest
-import pw.alk.spendle.network.RetrofitBuilder.apiService
+import pw.alk.spendle.network.RetrofitBuilder
 import pw.alk.spendle.ui.shared.BaseViewModel
 import pw.alk.spendle.ui.shared.Event
 import pw.alk.spendle.ui.utils.TokenDataStore
@@ -15,40 +15,40 @@ import pw.alk.spendle.ui.utils.getErrMessageFromBody
 import java.io.IOException
 import javax.inject.Inject
 
-sealed interface RegisterEvent : Event {
-    object RegisterSuccess : RegisterEvent
-    data class RegisterFailure(val message: String) : RegisterEvent
+sealed interface LoginEvent : Event {
+    object LoginSuccess : LoginEvent
+    data class LoginFailure(val message: String) : LoginEvent
 }
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val tokenDataStore: TokenDataStore) :
-    BaseViewModel<RegisterEvent>() {
+class LoginViewModel @Inject constructor(private val tokenDataStore: TokenDataStore) :
+    BaseViewModel<LoginEvent>() {
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
 
-    fun registerUser(email: String, password: String) {
+    fun loginUser(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val req = AuthRequest(email, password)
             _isLoading.value = true
             try {
-                val res = apiService.registerUser(req)
+                val res = RetrofitBuilder.apiService.loginUser(req)
 
                 if (res.isSuccessful) {
                     tokenDataStore.saveToken(res.body()!!.token)
-                    sendEvent(RegisterEvent.RegisterSuccess)
+                    sendEvent(LoginEvent.LoginSuccess)
                 } else {
-                    if (res.code() == 409) {
-                        sendEvent(RegisterEvent.RegisterFailure("User with email already exists!"))
+                    if (res.code() == 403) {
+                        sendEvent(LoginEvent.LoginFailure("Invalid username or password!"))
                         return@launch
                     }
 
-                    sendEvent(RegisterEvent.RegisterFailure(getErrMessageFromBody(res.errorBody()!!)))
+                    sendEvent(LoginEvent.LoginFailure(getErrMessageFromBody(res.errorBody()!!)))
                 }
             } catch (e: IOException) {
-                sendEvent(RegisterEvent.RegisterFailure("Internet issue?!"))
+                sendEvent(LoginEvent.LoginFailure("Internet issue?!"))
             } catch (e: Exception) {
                 sendEvent(
-                    RegisterEvent.RegisterFailure(
+                    LoginEvent.LoginFailure(
                         e.localizedMessage ?: "Something went wrong!"
                     )
                 )

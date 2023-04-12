@@ -2,8 +2,8 @@ package pw.alk.spendle.network
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import pw.alk.spendle.models.RegisterRequest
-import pw.alk.spendle.models.RegisterResponse
+import pw.alk.spendle.models.AuthRequest
+import pw.alk.spendle.models.AuthResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -32,5 +32,8 @@ object RetrofitBuilder {
 
 interface ApiService {
     @POST("user/register")
-    suspend fun registerUser(@Body request: RegisterRequest): Response<RegisterResponse>
+    suspend fun registerUser(@Body request: AuthRequest): Response<AuthResponse>
+
+    @POST("user/login")
+    suspend fun loginUser(@Body request: AuthRequest): Response<AuthResponse>
 }

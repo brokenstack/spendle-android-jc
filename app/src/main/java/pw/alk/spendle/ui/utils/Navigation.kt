@@ -9,6 +9,7 @@ import pw.alk.spendle.ui.screens.auth.AuthHome
 import pw.alk.spendle.ui.screens.auth.NavigationViewModel
 import pw.alk.spendle.ui.screens.auth.home.HomeScreen
 import pw.alk.spendle.ui.screens.auth.login.LoginScreen
+import pw.alk.spendle.ui.screens.auth.login.LoginViewModel
 import pw.alk.spendle.ui.screens.auth.register.RegisterScreen
 import pw.alk.spendle.ui.screens.auth.register.RegisterViewModel
 
@@ -33,7 +34,8 @@ fun SetupNavGraph(navController: NavHostController, navViewModel: NavigationView
         }
 
         composable(route = Screen.AuthLogin.route) {
-            LoginScreen(navController)
+            val viewModel = hiltViewModel<LoginViewModel>()
+            LoginScreen(navController, viewModel)
         }
 
         composable(route = Screen.Home.route) {
