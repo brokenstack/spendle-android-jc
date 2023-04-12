@@ -1,4 +1,4 @@
-package pw.alk.spendle.ui.components
+package pw.alk.spendle.ui.shared.components
 
 import android.graphics.Rect
 import android.view.View

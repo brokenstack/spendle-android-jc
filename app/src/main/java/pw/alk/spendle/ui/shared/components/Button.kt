@@ -1,4 +1,4 @@
-package pw.alk.spendle.ui.components
+package pw.alk.spendle.ui.shared.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

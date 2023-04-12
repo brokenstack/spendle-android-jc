@@ -1,4 +1,4 @@
-package pw.alk.spendle.ui.screens.auth
+package pw.alk.spendle.ui.screens.auth.login
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -16,13 +16,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import pw.alk.spendle.ui.components.BackButton
-import pw.alk.spendle.ui.components.EmailInput
-import pw.alk.spendle.ui.components.PasswordInput
+import pw.alk.spendle.ui.shared.components.BackButton
+import pw.alk.spendle.ui.shared.components.EmailInput
+import pw.alk.spendle.ui.shared.components.PasswordInput
 import pw.alk.spendle.ui.utils.Screen
 
 @Composable
-fun AuthLogin(navController: NavController) {
+fun LoginScreen(navController: NavController) {
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 

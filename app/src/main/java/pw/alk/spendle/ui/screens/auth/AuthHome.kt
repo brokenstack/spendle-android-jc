@@ -8,6 +8,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,7 +31,27 @@ val ButtonModifier = Modifier
     .fillMaxWidth()
 
 @Composable
-fun AuthHome(navController: NavController) {
+fun AuthHome(navController: NavController, viewModel: NavigationViewModel) {
+    val loadState by viewModel.loadState.collectAsState()
+
+    when (loadState) {
+        is ViewState.Loading -> {
+        }
+        is ViewState.NotLoggedIn -> {
+            AuthHomeContent(navController = navController)
+        }
+        is ViewState.LoggedIn -> {
+            LaunchedEffect(loadState) {
+                navController.navigate(Screen.Home.route) {
+                    launchSingleTop = true
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun AuthHomeContent(navController: NavController) {
     val context = LocalContext.current
 
     Column(
@@ -61,7 +84,9 @@ fun AuthHome(navController: NavController) {
 
         Button(
             onClick = {
-                navController.navigate(route = Screen.AuthRegister.route)
+                navController.navigate(route = Screen.AuthRegister.route) {
+                    launchSingleTop = true
+                }
             },
             modifier = ButtonModifier,
         ) {
@@ -111,7 +136,9 @@ fun AuthHome(navController: NavController) {
                     append("Sign In")
                 }
             }, onClick = {
-                navController.navigate(Screen.AuthLogin.route)
+                navController.navigate(Screen.AuthLogin.route) {
+                    launchSingleTop = true
+                }
             })
         }
     }
