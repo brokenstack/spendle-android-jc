@@ -24,6 +24,10 @@ class HomeViewModel @Inject constructor(private val tokenDataStore: TokenDataSto
     val weeklyTotalState = _weeklyTotalState
 
     init {
+        fetchWeeklyTotal()
+    }
+
+    private fun fetchWeeklyTotal() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val res = RetrofitBuilder.apiService.getWeeklyTotal(tokenDataStore.getToken()!!)
@@ -40,5 +44,6 @@ class HomeViewModel @Inject constructor(private val tokenDataStore: TokenDataSto
                     WeeklyTotalState.Failure(e.localizedMessage ?: "Something went wrong!")
             }
         }
+
     }
 }

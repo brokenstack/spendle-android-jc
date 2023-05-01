@@ -15,9 +15,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import pw.alk.spendle.ui.nav.Screen
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     val viewModel = hiltViewModel<HomeViewModel>()
     val homeScreenState = viewModel.weeklyTotalState.collectAsState().value
     val context = LocalContext.current
@@ -25,7 +27,11 @@ fun HomeScreen() {
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(route = Screen.AddExpense.route) {
+                        launchSingleTop = true
+                    }
+                },
                 backgroundColor = Color.White,
                 contentColor = Color.Black
             ) {
