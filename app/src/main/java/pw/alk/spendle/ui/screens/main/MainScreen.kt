@@ -1,4 +1,4 @@
-package pw.alk.spendle.ui.screens.auth.home
+package pw.alk.spendle.ui.screens.main
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -15,9 +15,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import pw.alk.spendle.ui.nav.Screen
+import pw.alk.spendle.ui.screens.main.home.HomeScreen
 
 @Composable
-fun HomeScreen(navController: NavHostController = rememberNavController()) {
+fun MainScreen(navController: NavHostController = rememberNavController()) {
     val items = listOf(
         Screen.Home,
         Screen.Stats,
@@ -59,7 +60,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
             Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                Text("Home")
+                HomeScreen()
             }
             composable(Screen.Stats.route) {
                 Text("Stats")

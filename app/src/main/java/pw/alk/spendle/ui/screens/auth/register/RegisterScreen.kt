@@ -72,7 +72,7 @@ fun RegisterScreen(
         OnEvent(event = viewModel.event) {
             when (it) {
                 RegisterEvent.RegisterSuccess ->
-                    navController.navigate(Graph.HOME) {
+                    navController.navigate(Graph.MAIN) {
                         launchSingleTop = true
                     }
                 is RegisterEvent.RegisterFailure ->

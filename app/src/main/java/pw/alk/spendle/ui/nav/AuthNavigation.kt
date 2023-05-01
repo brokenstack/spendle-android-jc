@@ -7,11 +7,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import pw.alk.spendle.ui.screens.auth.AuthHome
 import pw.alk.spendle.ui.screens.auth.NavigationViewModel
-import pw.alk.spendle.ui.screens.auth.home.HomeScreen
 import pw.alk.spendle.ui.screens.auth.login.LoginScreen
 import pw.alk.spendle.ui.screens.auth.login.LoginViewModel
 import pw.alk.spendle.ui.screens.auth.register.RegisterScreen
 import pw.alk.spendle.ui.screens.auth.register.RegisterViewModel
+import pw.alk.spendle.ui.screens.main.MainScreen
 
 sealed class AuthScreen(val route: String) {
     object Home : AuthScreen(route = "auth_home")
@@ -40,8 +40,8 @@ fun NavGraphBuilder.authNavigationGraph(navController: NavController) {
             LoginScreen(navController, viewModel)
         }
 
-        composable(route = Graph.HOME) {
-            HomeScreen()
+        composable(route = Graph.MAIN) {
+            MainScreen()
         }
     }
 }

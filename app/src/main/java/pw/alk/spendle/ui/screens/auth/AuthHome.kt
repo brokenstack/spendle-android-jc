@@ -43,7 +43,7 @@ fun AuthHome(navController: NavController, viewModel: NavigationViewModel) {
         }
         is ViewState.LoggedIn -> {
             LaunchedEffect(loadState) {
-                navController.navigate(Graph.HOME) {
+                navController.navigate(Graph.MAIN) {
                     launchSingleTop = true
                 }
             }

@@ -4,10 +4,13 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import pw.alk.spendle.models.AuthRequest
 import pw.alk.spendle.models.AuthResponse
+import pw.alk.spendle.models.WeeklyTotalResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 
@@ -36,4 +39,7 @@ interface ApiService {
 
     @POST("user/login")
     suspend fun loginUser(@Body request: AuthRequest): Response<AuthResponse>
+
+    @GET("reports/weekly/total")
+    suspend fun getWeeklyTotal(@Header("Authorization") token: String): Response<WeeklyTotalResponse>
 }

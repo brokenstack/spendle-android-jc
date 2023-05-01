@@ -97,7 +97,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
     OnEvent(event = viewModel.event) {
         when (it) {
             LoginEvent.LoginSuccess ->
-                navController.navigate(Graph.HOME) {
+                navController.navigate(Graph.MAIN) {
                     launchSingleTop = true
                 }
             is LoginEvent.LoginFailure ->
