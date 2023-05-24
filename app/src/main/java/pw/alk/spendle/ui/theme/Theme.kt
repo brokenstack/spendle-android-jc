@@ -1,32 +1,22 @@
 package pw.alk.spendle.ui.theme
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 
-@SuppressLint("ConflictingOnColor")
 private val DarkColorPalette = darkColors(
-    primary = Black200,
+    background = Black,
+    primary = primary,
     primaryVariant = primaryVariant,
-    secondary = Teal200,
-
-    background = Black500,
-    surface = Black,
-
-    onPrimary = Black,
-    onSecondary = White,
-    onBackground = Color.White,
-    onSurface = Color.Black,
+    surface = Black
 )
 
 private val LightColorPalette = lightColors(
     primary = Black500,
     primaryVariant = Black700,
-    secondary = Teal200
+    secondary = primary
 )
 
 @Composable

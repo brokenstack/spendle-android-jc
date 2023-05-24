@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import pw.alk.spendle.R
-import pw.alk.spendle.ui.screens.AddExpenseScreen
+import pw.alk.spendle.ui.screens.main.add_expense.AddExpenseScreen
+import pw.alk.spendle.ui.screens.main.add_expense.AddExpenseViewModel
 import pw.alk.spendle.ui.screens.main.home.HomeScreen
 
 sealed class BottomNavScreen(
@@ -47,7 +49,8 @@ fun MainNavigationGraph(navController: NavHostController, innerPadding: PaddingV
         }
 
         composable(Screen.AddExpense.route) {
-            AddExpenseScreen(navController)
+            val viewModel = hiltViewModel<AddExpenseViewModel>()
+            AddExpenseScreen(navController, viewModel)
         }
     }
 }

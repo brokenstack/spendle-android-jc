@@ -4,6 +4,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import pw.alk.spendle.models.AuthRequest
 import pw.alk.spendle.models.AuthResponse
+import pw.alk.spendle.models.GenericResponse
+import pw.alk.spendle.models.TransactionBody
 import pw.alk.spendle.models.WeeklyTotalResponse
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -42,4 +44,10 @@ interface ApiService {
 
     @GET("reports/weekly/total")
     suspend fun getWeeklyTotal(@Header("Authorization") token: String): Response<WeeklyTotalResponse>
+
+    @POST("transaction/new")
+    suspend fun newTransaction(
+        @Body request: TransactionBody,
+        @Header("Authorization") token: String
+    ): Response<GenericResponse>
 }

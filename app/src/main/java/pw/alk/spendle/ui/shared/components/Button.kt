@@ -25,7 +25,7 @@ fun BackButton(onClick: () -> Unit) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_back),
                 contentDescription = "Back button",
-                tint = MaterialTheme.colors.onSecondary,
+                tint = MaterialTheme.colors.onSurface,
                 modifier = Modifier.size(26.dp)
             )
             Text("Back", fontSize = 18.sp)
